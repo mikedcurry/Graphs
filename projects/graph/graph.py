@@ -157,9 +157,6 @@ class Graph:
         #         visited.add(c_node)
         #         for friend in self.vertices[c_node]:
         #             q.enqueue(friend)
-        #         # for friend in self.vertices[last]:
-                        #q.enqueue([*c_path, friend]) 
-
 
     def dfs(self, starting_vertex, destination_vertex):
         """

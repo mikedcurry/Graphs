@@ -48,15 +48,13 @@ class Graph:
 
         # Loop while there's something in the queue
         while q.size():
-            # print('inside while loop')
             # Take the current node off the front of the queue
-            node = q.dequeue()
-        #     # print('made the node')
+            path = q.dequeue()
         #     # check visited list; if not there add to list, then add it's friends to queue
-            if node not in visited:
-                visited.add(node)
-                print(node)
-                for friend in self.get_neighbors(node):
+            if path not in visited:
+                visited.add(path)
+                print(path)
+                for friend in self.get_neighbors(path):
                     # print('inside for neighbors loop')
                     if friend is not None:
                         q.enqueue(friend)
@@ -103,17 +101,23 @@ class Graph:
 
         This should be done using recursion.
         """
+        # SEE ALSO BINARY SEARCH TREE!!! as example...
+
         # If no set of visited exists, create one
         if visited == None:
             visited = set()
+
         # check visited list, if it's not there...
         if not starting_vertex in visited:
             # ... add it to the visited list
             visited.add(starting_vertex)
+            # Do The Thing 
             print(starting_vertex)
+
             # do the recursion to all neighbors (friend vertices)
             for friend in self.vertices[starting_vertex]:
                 self.dft_recursive(friend, visited)
+                # Stops when it has no more friends who have not been visited...
 
 
     def bfs(self, starting_vertex, destination_vertex):
@@ -122,6 +126,8 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+        ## Copy & Paste from BFT... then, 
+
         # Instantiate queue
         q = Queue()
         # This time add the starting point as a list...
@@ -132,18 +138,19 @@ class Graph:
         #Loop while there is something in the queue
         while q.size():
             # Just like bft take what's at the front of the que. This time a path of nodes/vertices
-            c_path = q.dequeue()
+            path = q.dequeue()
             # declare which is last in the path
-            last = c_path[-1]
-            # 
+            last = path[-1]
+            print(path)
+            print(last) 
             if not last in visited:
                 visited.add(last)
-                # check to see if we've found the destination...
+                # THE THING!!! check if we've found the destination...
                 if last == destination_vertex:
-                    return c_path
+                    return path
                 # ... if it's not the destination:
                 for thing in self.get_neighbors(last):
-                    copy = c_path.copy()
+                    copy = path.copy()
                     if not thing in copy:
                         copy.append(thing)
                     q.enqueue(copy)
